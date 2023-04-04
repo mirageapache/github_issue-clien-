@@ -20,8 +20,8 @@ export default function LoginPage(){
   //   }
   // }
 
+  // 取回使用者的 "code"
   useEffect(()=>{  
-    // 取回使用者的 "code"
     const query_string = window.location.search;
     const url_params = new URLSearchParams(query_string);
     const code = url_params.get("code");
@@ -44,14 +44,14 @@ export default function LoginPage(){
 
   // 登入
   async function handleLogin(){
-    window.location.assign("https://github.com/login/oauth/authorize?client_id="+client_id);
+    window.location.assign(`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=repo,user`);
   }
 
   return(
     <div>
       {localStorage.getItem("access_token") ?
         <>
-          <h2>已經登入</h2>
+          {/* <h2>已經登入</h2> */}
           {/* <button className='btn btn-danger' onClick={handleLogout} >登出Github</button> */}
         </>
     :
