@@ -1,0 +1,30 @@
+.navbar {
+  position: fixed;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  left: 0;
+  top: 0;
+  padding: 0 20px;
+}
+.navbar .navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar .navbar-brand .navbar_avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  border: 1px solid gray;
+  border-radius: 50px;
+}
+.navbar .navbar-brand p {
+  margin: 0;
+}
+.navbar .form-inline {
+  display: flex;
+}
+.navbar .form-inline input, .navbar .form-inline button {
+  margin: 0 5px;
+}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import Navbar from "components/Navbar";
+import IssueList from "components/IssueList";
 
 export default function MainPage(){
   const [userData, setUserData] = useState(null);
@@ -37,7 +39,7 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          console.log(result);
+          console.log(result.data.items);
           setIssueList(result.data.items)
         } catch (error) {
           console.log(error);
@@ -57,19 +59,21 @@ export default function MainPage(){
 
   return(
     <>
-    
-      <h2>MainPage, 已經登入</h2>
-      <button className='btn btn-danger' onClick={handleLogout} >登出Github</button>
-
-      {/* User Data */}
+    {/* User Data */}
       {userData !== null ?
         <>
-        <h4>{userData.login}</h4>
-        <img width="100px" height="100px" src={userData.avatar_url} alt=''></img>
-        <a href={userData.html_url} style={{"color":"white"}}>View Github Profile</a>
+        <Navbar userData={userData} Logout={handleLogout}/>
+        {issueList !== null?
+          <IssueList listData={issueList} />
+          :
+          <></>
+        }
         </>
       :
-        <><p>未取得User Data</p></>
+        <>
+          <h2>糟糕，發生了一點錯誤！</h2>
+          <NavLink to='/' onClick={handleLogout}>請重新登入</NavLink>
+        </>
       }
 
     </>

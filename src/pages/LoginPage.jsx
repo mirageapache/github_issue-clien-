@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logo from '../logo.svg';
 
 // const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_id = "56101bc6f878daff5d1e";
@@ -9,7 +10,6 @@ export default function LoginPage(){
   // const [rerender, setRerender] = useState(false);
   const navigate = useNavigate();
   
-
   // 測試取得資料
   // async function getData(){
   //   try {
@@ -21,6 +21,7 @@ export default function LoginPage(){
   // }
 
   // 取回使用者的 "code"
+  
   useEffect(()=>{  
     const query_string = window.location.search;
     const url_params = new URLSearchParams(query_string);
@@ -51,11 +52,10 @@ export default function LoginPage(){
     <div>
       {localStorage.getItem("access_token") ?
         <>
-          {/* <h2>已經登入</h2> */}
-          {/* <button className='btn btn-danger' onClick={handleLogout} >登出Github</button> */}
         </>
     :
       <>
+        <img src={logo} className="App-logo" alt="logo" />
         <h2>登入您的Github並開始使用</h2>
         <button className='btn btn-primary' onClick={handleLogin} >登入Github</button>
       </>

@@ -12,3 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+
+.container{
+  position: relative;
+  margin-top: 60px;
+  padding: 25px;
+}

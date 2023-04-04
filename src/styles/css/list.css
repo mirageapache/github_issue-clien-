@@ -1,0 +1,54 @@
+.table {
+  border: 1px solid gray;
+  border-radius: 15px;
+}
+.table thead {
+  font-size: 20px;
+}
+.table thead .item_num {
+  width: 5%;
+}
+.table thead .item_content {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .table thead .item_title {
+    width: 30%;
+  }
+  .table thead .item_content {
+    width: 40%;
+    display: table-cell;
+  }
+  .table thead .item_date {
+    width: 10%;
+  }
+}
+.table tbody th, .table tbody td {
+  vertical-align: middle;
+}
+.table tbody .num {
+  width: 5%;
+}
+.table tbody .content {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .table tbody .title {
+    width: 30%;
+  }
+  .table tbody .content {
+    width: 40%;
+    display: table-cell;
+  }
+  .table tbody .date {
+    width: 10%;
+    min-width: 120px;
+  }
+}
+.table tbody .operate {
+  display: flex;
+  width: 150px;
+}
+.table tbody .operate button {
+  margin-left: 5px;
+}

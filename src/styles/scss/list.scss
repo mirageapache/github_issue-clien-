@@ -1,0 +1,63 @@
+.table{
+  border: 1px solid gray;
+  border-radius: 15px;
+  
+  thead{
+    font-size: 20px;
+    .item_num{
+      width:5%;
+    }
+    .item_content{
+      display: none;
+    }
+
+    @media screen and (min-width: 768px) {
+      .item_title{
+        width: 30%;
+      }
+      .item_content {
+        width: 40%;
+        display: table-cell;
+      }
+      .item_date{
+        width: 10%;
+      }
+    }
+  }
+
+  tbody{
+    th,td{
+      vertical-align: middle;
+    }
+    .num {
+      width: 5%;
+    }
+    .content {
+      display: none;
+    }
+    @media screen and (min-width: 768px) {
+      .title {
+        width: 30%;
+      }
+      .content {
+        width: 40%;
+        display: table-cell;
+      }
+      .date {
+        width: 10%;
+        min-width: 120px;
+      }
+    }
+
+    .operate{
+      display: flex;
+      width: 150px;
+      
+      button{
+        margin-left: 5px;
+      }
+    }
+
+    
+  }
+}
