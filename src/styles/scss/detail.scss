@@ -1,0 +1,71 @@
+.detail_panel{
+  margin: 0 50px;
+
+  .banner{
+    text-align: left;
+    padding-left: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+
+    .back_btn{
+      .back_icon {
+        margin-top: -3px;
+      }
+    }
+  }
+
+  .user_profile {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+
+    .user_avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 100px;
+    }
+    .user_name {
+      margin: 0;
+      margin-left: 10px;
+    }
+  }
+
+  .content{
+    border: 1px solid #bbb;
+    border-radius: 15px;
+    padding: 20px;
+
+    
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      
+      .detail_title {
+        font-weight: bolder;
+        margin-left: 10px;
+      }
+      
+      .operate {
+        display: flex;
+        align-items: center;
+
+        .state_select{
+          margin-right: 10px;
+          border-radius: 5px;
+          padding: 6px;
+        }
+
+        .btn {
+          margin: 10px;
+        }
+      }
+    }
+  }
+  .detail_body {
+    text-align: left;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+}

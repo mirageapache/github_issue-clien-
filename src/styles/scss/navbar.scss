@@ -26,12 +26,18 @@
   }
 
 
-
-  .form-inline{
+  .logout_btn{
     display: flex;
-    
-    input, button{
-      margin: 0 5px;
+    align-items: center;
+
+    .logout_icon{
+      width: 15px;
+      height: 15px;
+      margin-right: 5px;
+      path{
+        fill: white;
+      }
     }
   }
+  
 }

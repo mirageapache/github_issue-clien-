@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-color: #eee;
+  height: 100vh;
 }
 
 .App-logo {
@@ -17,4 +19,16 @@
   position: relative;
   margin-top: 60px;
   padding: 25px;
+  background-color: white;
+  height: 100vh;
+}
+
+svg{
+  width: 15px;
+  height: 15px;
+  margin: 0 5px;
+}
+
+path{
+  fill: white;
 }

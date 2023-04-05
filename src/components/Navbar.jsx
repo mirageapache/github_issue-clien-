@@ -1,19 +1,55 @@
-import { NavLink } from "react-router-dom";
+import { useMain } from "context/MainContext";
+import { NavLink, useNavigate } from "react-router-dom";
 import 'styles/css/navbar.css'
+import axios from "axios";
 
-export default function Navbar({ userData, Logout }){
+import { ReactComponent as IconLogout} from 'assets/icons/logout.svg';
+import { useEffect } from "react";
+
+export default function Navbar(){
+  const navigate = useNavigate();
+  const { userData,setUserData } = useMain();
+
+  // 取得UserData
+  useEffect(() => {
+    async function getUserData(){
+      try {
+        const result = await axios.get(`http://localhost:5000/getUserData`,{
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem('access_token')
+          }
+        });
+        setUserData(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUserData();
+  }, [userData])
+
+  // 登出
+  function handleLogout(){
+    localStorage.removeItem("access_token");
+    navigate('/');
+  }
+
   return(
     <>
-      <nav class="navbar navbar-light bg-light justify-content-between">
+      <nav className="navbar navbar-light bg-light justify-content-between">
         <NavLink className='navbar-brand' to='/main'>
-          <img className="navbar_avatar" src={userData.avatar_url} alt="avatar" />
-          <p>{userData.login}</p>
+          {userData !== null && userData !== undefined?
+          <>
+            <img className="navbar_avatar" src={userData.avatar_url} alt="avatar" />
+            <p>Hi,{userData.login}</p>
+          </>
+          :
+            <></>
+          }
         </NavLink>
-        {/* <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> */}
-        <button className='btn btn-danger' onClick={Logout} >登出</button>
+        <button className='logout_btn btn btn-danger' onClick={handleLogout} >
+          <IconLogout className="logout_icon" />
+          登出
+        </button>
       </nav>
     
     </>

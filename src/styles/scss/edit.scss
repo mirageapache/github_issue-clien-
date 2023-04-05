@@ -1,0 +1,44 @@
+.edit_page{
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 0 50px;
+  padding: 10px;
+
+  h3{
+    text-align: left;
+    margin: 10px 40px;
+    font-weight: bolder;
+  }
+
+  .edit_form{
+    margin: 10px 40px;
+    input{
+      margin: 25px 0;
+    }
+
+    .select_div{
+      text-align: left;
+      
+      .repo_select{
+        padding: 7px;
+        border-radius: 5px;
+        width: 100%;
+      } 
+      @media screen and (min-width: 768px) {
+        .repo_select{
+          width: calc(100% - 162px);
+        }
+      }
+    }
+  }
+
+  .form_btn{
+    text-align: right;
+    padding: 10px 40px;
+
+    .btn{
+      margin: 0 15px;
+    }
+  }
+
+}

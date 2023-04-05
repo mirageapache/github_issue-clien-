@@ -8,8 +8,25 @@
 .table thead .item_num {
   width: 5%;
 }
+.table thead .item_title {
+  text-align: left;
+}
 .table thead .item_content {
   display: none;
+}
+.table thead .item_date {
+  cursor: pointer;
+  vertical-align: middle;
+  width: 10%;
+  min-width: 140px;
+}
+.table thead .item_date .sort_icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 2px;
+}
+.table thead .item_date .sort_icon path {
+  fill: black;
 }
 @media screen and (min-width: 768px) {
   .table thead .item_title {
@@ -18,9 +35,7 @@
   .table thead .item_content {
     width: 40%;
     display: table-cell;
-  }
-  .table thead .item_date {
-    width: 10%;
+    text-align: left;
   }
 }
 .table tbody th, .table tbody td {
@@ -29,8 +44,15 @@
 .table tbody .num {
   width: 5%;
 }
+.table tbody .title {
+  text-align: left;
+}
 .table tbody .content {
   display: none;
+}
+.table tbody .date {
+  width: 10%;
+  min-width: 120px;
 }
 @media screen and (min-width: 768px) {
   .table tbody .title {
@@ -38,11 +60,12 @@
   }
   .table tbody .content {
     width: 40%;
+    max-width: 300px;
+    text-align: left;
     display: table-cell;
-  }
-  .table tbody .date {
-    width: 10%;
-    min-width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 .table tbody .operate {

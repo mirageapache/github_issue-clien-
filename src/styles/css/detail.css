@@ -1,0 +1,57 @@
+.detail_panel {
+  margin: 0 50px;
+}
+.detail_panel .banner {
+  text-align: left;
+  padding-left: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+}
+.detail_panel .banner .back_btn .back_icon {
+  margin-top: -3px;
+}
+.detail_panel .user_profile {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+.detail_panel .user_profile .user_avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+}
+.detail_panel .user_profile .user_name {
+  margin: 0;
+  margin-left: 10px;
+}
+.detail_panel .content {
+  border: 1px solid #bbb;
+  border-radius: 15px;
+  padding: 20px;
+}
+.detail_panel .content .info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.detail_panel .content .info .detail_title {
+  font-weight: bolder;
+  margin-left: 10px;
+}
+.detail_panel .content .info .operate {
+  display: flex;
+  align-items: center;
+}
+.detail_panel .content .info .operate .state_select {
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 6px;
+}
+.detail_panel .content .info .operate .btn {
+  margin: 10px;
+}
+.detail_panel .detail_body {
+  text-align: left;
+  font-size: 18px;
+  padding: 10px;
+}

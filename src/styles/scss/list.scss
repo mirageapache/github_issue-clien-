@@ -7,10 +7,26 @@
     .item_num{
       width:5%;
     }
+    .item_title{
+      text-align: left;
+    }
     .item_content{
       display: none;
     }
-
+    .item_date{
+      cursor: pointer;
+      vertical-align: middle;
+      width: 10%;
+      min-width: 140px;
+      .sort_icon{
+        width: 20px;
+        height: 20px;
+        margin-left: 2px;
+        path{
+          fill: black;
+        }
+      }
+    }
     @media screen and (min-width: 768px) {
       .item_title{
         width: 30%;
@@ -18,9 +34,7 @@
       .item_content {
         width: 40%;
         display: table-cell;
-      }
-      .item_date{
-        width: 10%;
+        text-align: left;
       }
     }
   }
@@ -32,8 +46,15 @@
     .num {
       width: 5%;
     }
+    .title{
+      text-align: left;
+    }
     .content {
       display: none;
+    }
+    .date {
+      width: 10%;
+      min-width: 120px;
     }
     @media screen and (min-width: 768px) {
       .title {
@@ -41,11 +62,12 @@
       }
       .content {
         width: 40%;
+        max-width: 300px;
+        text-align: left;
         display: table-cell;
-      }
-      .date {
-        width: 10%;
-        min-width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
 

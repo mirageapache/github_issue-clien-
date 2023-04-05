@@ -22,9 +22,15 @@
 .navbar .navbar-brand p {
   margin: 0;
 }
-.navbar .form-inline {
+.navbar .logout_btn {
   display: flex;
+  align-items: center;
 }
-.navbar .form-inline input, .navbar .form-inline button {
-  margin: 0 5px;
+.navbar .logout_btn .logout_icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+}
+.navbar .logout_btn .logout_icon path {
+  fill: white;
 }

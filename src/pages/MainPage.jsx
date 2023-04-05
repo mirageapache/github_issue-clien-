@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "components/Navbar";
 import IssueList from "components/IssueList";
+import SearchPanel from "components/SearchPanel";
+import 'styles/css/main.css';
+import { useMain } from "context/MainContext";
 
 export default function MainPage(){
-  const [userData, setUserData] = useState(null);
-  const [issueList, setIssueList] = useState(null);
-  const navigate = useNavigate();
+  const { userData, setUserData, rerender } = useMain();
+  const { issueList, setIssueList } = useMain();
+  const { searchString, setSearchString} = useMain('');
+  const { setSortDate } = useMain(true);
 
   // 取得UserData
   useEffect(() => {
@@ -19,7 +23,6 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          console.log(result.data);
           setUserData(result.data);
         } catch (error) {
           console.log(error);
@@ -29,9 +32,35 @@ export default function MainPage(){
     }
   }, [userData])
 
+
+  // 取得Search List
+  async function getSearchList(searchString, sortDate){
+    setSearchString(searchString);
+    if(sortDate === undefined || sortDate === null){
+      sortDate = true;
+    }
+    setSortDate(sortDate);
+    let parmas = `author:${userData.login}`;
+
+    if(searchString !== null && searchString !== undefined){
+      parmas = `author:${userData.login} ${searchString} in:title ${searchString} in:body`;
+    }
+    try {
+      const result = await axios.get(`http://localhost:5000/getSearchList?q=${parmas}&sort=${sortDate}`,{
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem('access_token')
+        }
+      });
+      setIssueList(result.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // 取得Issue List
   useEffect(()=>{
     if(userData!== null && issueList === null){
+      // 取得Issue List
       async function getIssueList(){
         try {
           const result = await axios.get(`http://localhost:5000/getIssueList?q=author:${userData.login}`,{
@@ -39,40 +68,40 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          console.log(result.data.items);
-          setIssueList(result.data.items)
+          setIssueList(result.data.items);
         } catch (error) {
           console.log(error);
         }
       }
       getIssueList();
     }
-  },[issueList,userData])
+  },[issueList,setIssueList,userData,rerender])
 
-
-  // 登出
-  function handleLogout(){
-    console.log('execute logout');
-    localStorage.removeItem("access_token");
-    navigate('/');
-  }
 
   return(
     <>
     {/* User Data */}
       {userData !== null ?
         <>
-        <Navbar userData={userData} Logout={handleLogout}/>
-        {issueList !== null?
-          <IssueList listData={issueList} />
+        <Navbar />
+        <SearchPanel  getSearchList={getSearchList} />
+        { issueList !== null && issueList !== undefined ?
+          <>
+            <IssueList  getSearchList={getSearchList} />
+          </>
           :
-          <></>
+          <>
+            {searchString !== null || searchString !== '' ?
+              <></>
+            :
+              <h3 className="search_message">找不到相關資料！</h3>
+            }
+          </>
         }
         </>
       :
         <>
-          <h2>糟糕，發生了一點錯誤！</h2>
-          <NavLink to='/' onClick={handleLogout}>請重新登入</NavLink>
+          <h2>資料載入中。。。</h2>
         </>
       }
 
