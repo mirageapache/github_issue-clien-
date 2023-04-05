@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import 'styles/css/create.css'
 
 export default function CreatePage(){
-  const { userData, rerender, setRerender } = useMain();
+  const { userData, rerender, setRerender, setIssueList } = useMain();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [repo, setRepo] = useState('');
@@ -66,7 +66,7 @@ export default function CreatePage(){
     }
     if(body.length < 30){
       alert('內容至少需要30字以上！');
-      // return
+      return
     }
 
     try {
@@ -82,7 +82,10 @@ export default function CreatePage(){
         createLabels();
         // 將新建立的issue 加入state
         addLabels(result.data.number);
-        setRerender(!rerender);
+        setIssueList((prevData)=>{
+          return[result.data,...prevData]
+        });
+        alert('新增成功！')
         navigate('/main');
       }
     } catch (error) {

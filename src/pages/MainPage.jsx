@@ -8,7 +8,7 @@ import 'styles/css/main.css';
 import { useMain } from "context/MainContext";
 
 export default function MainPage(){
-  const { userData, setUserData, rerender } = useMain();
+  const { userData, setUserData, rerender, setRerender } = useMain();
   const { issueList, setIssueList } = useMain();
   const { searchString, setSearchString} = useMain('');
   const { setSortDate } = useMain(true);
@@ -23,6 +23,7 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
+          console.log(result.data);
           setUserData(result.data);
         } catch (error) {
           console.log(error);
@@ -68,6 +69,7 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
+          console.log(result)
           setIssueList(result.data.items);
         } catch (error) {
           console.log(error);
@@ -75,7 +77,7 @@ export default function MainPage(){
       }
       getIssueList();
     }
-  },[issueList,setIssueList,userData,rerender])
+  },[issueList,setIssueList,userData,rerender,setRerender])
 
 
   return(

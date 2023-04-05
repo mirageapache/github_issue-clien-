@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# Github Issue Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 專案說明
 
-## Available Scripts
+本系統為簡易版 Github issue 操作系統，使用者可以 Github 帳號登入後瀏覽個人 issue 清單，另有新增、修改、刪除等功能
 
-In the project directory, you can run:
+- 本系統採用 React 框架開發，本專案須與 proxy 伺服器搭配使用
+  (伺服器專案連結：https://github.com/mirageapache/github_issue_server_-_.git)
 
-### `npm start`
+## 環境設置
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- node.js - 16.14.2
+- npm - 8.5.0
+- React - 18.2.0
+- axios - 1.3.4
+- react-router-dom - 6.9.0
+- react-infinite-scroll-component - 6.1.0
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 開始使用
 
-### `npm test`
+1. Clone Repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone https://github.com/mirageapache/github_issue_client.git
+```
 
-### `npm run build`
+2.安裝 npm
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3.啟動程式
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm start //執行專案前須先啟動Server端程式喔！
+```
 
-### `npm run eject`
+4.瀏覽網頁
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+瀏覽器將自動開啟網頁，如未正常開啟請輸入http://localhost:3000/github_issue_client_/login，即可使用
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5.終止程式
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+在終端機按下兩次 ctrl + C 即可終止程式
+```

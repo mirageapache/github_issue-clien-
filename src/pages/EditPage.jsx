@@ -6,15 +6,16 @@ import { useNavigate } from "react-router-dom";
 import 'styles/css/edit.css'
 
 export default function EditPage(){
-  const { userData, setRerender } = useMain();
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [repo, setRepo] = useState('');
-  const [repoList, setRepoList] = useState();
+  const { userData, rerender, setRerender, setIssueList } = useMain();
+  const { issue } = useMain();
+  const [title, setTitle] = useState(issue.title);
+  const [body, setBody] = useState(issue.body);
   const navigate = useNavigate();
 
   // 建立labels
   async function createLabels(){
+    let substring_from = 30 + userData.login.length;
+    const repo = issue.repository_url.substring(substring_from);
     const label = ['open','in_progress','done'];
     for(let i = 0; i<=2; i++){
       const result = await axios.get(`http://localhost:5000/createLabels?username=${userData.login}&repo=${repo}&label_name=${label[i]}`,{
@@ -26,33 +27,48 @@ export default function EditPage(){
     }
   }
 
-  // 建立Issue
+  // 編輯Issue
   async function EditIssue(){
     if(title.length === 0){
-      alert('請輸入標題！');
+      alert('標題不能空白！');
       return
     }
     if(body.length === 0){
-      alert('請輸入內容！');
+      alert('內容不能空白！');
       return
     }
     if(body.length < 30){
       alert('內容至少需要30字以上！');
-      // return
+      return
     }
-
+    
+    let substring_from = 30 + userData.login.length;
+    const repo = issue.repository_url.substring(substring_from);
     try {
       // 編輯issue資料
-      const result = await axios.get(`http://localhost:5000/editIssue?username=${userData.login}&repo=${repo}&title=${title}&body=${body}`,{
+      const result = await axios.get(`http://localhost:5000/editIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&title=${title}&body=${body}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
       });
-      console.log(result);
       if(result.status === 200){
         //將新建立的issue 加入state
         createLabels();
-        setRerender(true);
+        const new_data = result.data;
+        setIssueList((prevData)=>{
+          return prevData.map((item) => {
+            if(item.id === new_data.id){
+              return{
+                ...item,
+                title: new_data.title,
+                body: new_data.body
+              };
+            }else{
+              return item;
+            }
+          })
+        });
+        alert('修改成功！')
         navigate('/main');
       }
     } catch (error) {
