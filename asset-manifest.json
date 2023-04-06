@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/github_issue_client/static/css/main.515feb84.css",
+    "main.js": "/github_issue_client/static/js/main.7299f302.js",
+    "static/js/787.c4e7f8f9.chunk.js": "/github_issue_client/static/js/787.c4e7f8f9.chunk.js",
+    "static/media/logo.svg": "/github_issue_client/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/github_issue_client/index.html",
+    "static/media/logout.svg": "/github_issue_client/static/media/logout.1438adba5dc67a3cc51879ad3fa83aff.svg",
+    "static/media/left_arrow.svg": "/github_issue_client/static/media/left_arrow.249ceb366ee68b0c69c68af4852f734d.svg",
+    "static/media/create_item.svg": "/github_issue_client/static/media/create_item.3b3d0548eeb93050046dbd0a37fe334b.svg",
+    "static/media/caret_down.svg": "/github_issue_client/static/media/caret_down.d703ca0072be5912921d4428aa12c31d.svg",
+    "static/media/caret_up.svg": "/github_issue_client/static/media/caret_up.6d2bfe4c5d59e8dc847ccc0de855099e.svg",
+    "main.515feb84.css.map": "/github_issue_client/static/css/main.515feb84.css.map",
+    "main.7299f302.js.map": "/github_issue_client/static/js/main.7299f302.js.map",
+    "787.c4e7f8f9.chunk.js.map": "/github_issue_client/static/js/787.c4e7f8f9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.515feb84.css",
+    "static/js/main.7299f302.js"
+  ]
+}
