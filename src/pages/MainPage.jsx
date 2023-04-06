@@ -50,12 +50,7 @@ export default function MainPage(){
 
     // 狀態分類
     if(state.length > 0 && state !== 'all'){
-      if(state === 'open'){
-        parmas = parmas + ` state:${state} label:' '`
-      }
-      else{
-        parmas = parmas + ` label:${state} `
-      }
+      parmas = parmas + ` state:open label:${state} `
     }
 
     try {

@@ -9,7 +9,7 @@ export default function CreatePage(){
   const { userData, setIssueList } = useMain();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [repo, setRepo] = useState('');
+  const [repo, setRepo] = useState('-');
   const [repoList, setRepoList] = useState();
   const navigate = useNavigate();
 
@@ -30,32 +30,21 @@ export default function CreatePage(){
     getRepoList()
   },[])
 
-  // 建立labels
-  async function createLabels(){
-    const label = ['open','in_progress','done'];
-    for(let i = 0; i<=2; i++){
-      const result = await axios.get(`http://localhost:5000/createLabels?username=${userData.login}&repo=${repo}&label_name=${label[i]}`,{
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem('access_token')
-        }
-      }); 
-      console.log(result)
-    }
-  }
-
   // 加入labels 至issue
   async function addLabels(number){
-    console.log(number);
-    const result = await axios.get(`http://localhost:5000/addLabelsToIssue?username=${userData.login}&repo=${repo}&nubmer=${number}`,{
+    await axios.get(`http://localhost:5000/addLabelsToIssue?username=${userData.login}&repo=${repo}&number=${number}`,{
       headers: {
         "Authorization": "Bearer " + localStorage.getItem('access_token')
       }
     }); 
-    console.log(result)
   }
 
   // 建立Issue
   async function CreateIssue(){
+    if(repo === '-'){
+      alert('請選擇Repository！');
+      return
+    }
     if(title.length === 0){
       alert('請輸入標題！');
       return
@@ -76,10 +65,7 @@ export default function CreatePage(){
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
       });
-      console.log(result)
       if(result.status === 200){
-        // 建立新的label 狀態
-        createLabels();
         // 將新建立的issue 加入state
         addLabels(result.data.number);
         setIssueList((prevData)=>{
@@ -91,7 +77,6 @@ export default function CreatePage(){
     } catch (error) {
       console.log(error);
     }
-
   }
 
   return(
@@ -146,6 +131,7 @@ function RepoItem({ repoList }){
 
   return(
     <>
+      <option value='-' >請選擇Repository</option>
       {item}
     </>
   )
