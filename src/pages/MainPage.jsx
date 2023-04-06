@@ -9,7 +9,7 @@ import { useMain } from "context/MainContext";
 export default function MainPage(){
   const { userData, setUserData } = useMain();
   const { issueList, setIssueList } = useMain();
-  const { searchString, setSearchString} = useMain('');
+  const { searchString, setSearchString, setCurrentState} = useMain('');
   const { setSortDate } = useMain(true);
 
   // 取得UserData
@@ -33,17 +33,31 @@ export default function MainPage(){
 
 
   // 取得Search List
-  async function getSearchList(searchString, sortDate){
+  async function getSearchList(searchString, sortDate, state){
     setSearchString(searchString);
+    setSortDate(sortDate);
+    setCurrentState(state);
+    // 排序
     if(sortDate === undefined || sortDate === null){
       sortDate = true;
     }
-    setSortDate(sortDate);
-    let parmas = `author:${userData.login}`;
+    let parmas = `author:${userData.login} `;
 
+    // 搜尋字串
     if(searchString !== null && searchString !== undefined){
-      parmas = `author:${userData.login} ${searchString} in:title ${searchString} in:body`;
+      parmas = parmas + ` ${searchString} in:title ${searchString} in:body `;
     }
+
+    // 狀態分類
+    if(state.length > 0 && state !== 'all'){
+      if(state === 'open'){
+        parmas = parmas + ` state:${state} label:' '`
+      }
+      else{
+        parmas = parmas + ` label:${state} `
+      }
+    }
+
     try {
       const result = await axios.get(`http://localhost:5000/getSearchList?q=${parmas}&sort=${sortDate}`,{
         headers: {

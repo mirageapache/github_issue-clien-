@@ -7,7 +7,7 @@ import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function IssueList({ getSearchList }){
-  const { sortDate, searchString, setIssue, issueList, userData } = useMain();
+  const { sortDate, searchString, setIssue, issueList, userData, currentState } = useMain();
   const navigate = useNavigate();
   const data_item = issueList.map((item,index) => {
     const link = `/detail?id=${item.number}`
@@ -34,7 +34,7 @@ export default function IssueList({ getSearchList }){
 
   // 排序
   function handleSort(){
-    getSearchList(searchString, !sortDate);
+    getSearchList(searchString, !sortDate, currentState);
   }
 
   return(

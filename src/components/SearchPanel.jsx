@@ -4,11 +4,19 @@ import { ReactComponent as IconCreate} from 'assets/icons/create_item.svg';
 import { useNavigate } from 'react-router-dom';
 
 export default function SearchPanel({ getSearchList }){
-  const { sortData, searchString} = useMain();
+  const { sortData, searchString, setSearchString, currentState, setCurrentState} = useMain();
   const navigate = useNavigate();
 
-  async function handleSearch(value){
-    getSearchList(value, sortData);
+  // 輸入捜尋
+  function handleSearch(value){
+    setSearchString(value)
+    getSearchList(value, sortData, currentState);
+  }
+
+  // 狀態分類搜尋
+  function handleState(value){
+    setCurrentState(value);
+    getSearchList(searchString, sortData, value);
   }
 
   return(
@@ -27,10 +35,7 @@ export default function SearchPanel({ getSearchList }){
         {/* button group */}
         {/* 設定一個context 存state狀態 */}
         <div className="btn-group mr-2" role="group" aria-label="First group">
-          <button type="button" className="btn btn-secondary active">All</button>
-          <button type="button" className="btn btn-secondary">Open</button>
-          <button type="button" className="btn btn-secondary">In Progress</button>
-          <button type="button" className="btn btn-secondary">Done</button>
+          <SwtichButton handleState={handleState}/>
         </div>
 
         {/* create button */}
@@ -42,5 +47,24 @@ export default function SearchPanel({ getSearchList }){
       </div>
     </>
   )
+}
 
+
+function SwtichButton ({ handleState }){
+  let items = ['all','open','in_progress','done']
+  const { currentState } = useMain();
+  const buttons = items.map((item,index) => {
+    if(item === currentState){
+      return <button key={index} className="btn btn-secondary active" onClick={()=>{handleState(item)}}>{item}</button>
+    }
+    else{
+      return <button key={index} className="btn btn-secondary" onClick={()=>{handleState(item)}}>{item}</button>
+    }
+  })
+
+  return(
+    <>
+      {buttons}
+    </>
+  )
 }
