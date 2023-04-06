@@ -9,14 +9,43 @@ export default function DetailPage(){
   const { userData, issue, currentState, setCurrentState, setIssueList } = useMain();
   const navigate = useNavigate();
 
-  // 狀態選單
-  function selectChange(value){
-    setCurrentState(value);
-  }
-
   // 進入編輯頁
   function handleEdit(index){
     navigate(`/edit?id=${index}`);
+  }
+
+  // 修改issue狀態
+  async function setIssueState(value){
+    setCurrentState(value);
+    let substring_from = 30 + userData.login.length;
+    const repo = issue.repository_url.substring(substring_from);
+    try {
+      const result = await axios.get(`http://localhost:5000/setLabelsToIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&state=${value}`,{
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem('access_token')
+        }
+      });
+      if(result.status === 200){
+        console.log(result);
+        const new_data = result.data;
+        setIssueList((prevData)=>{
+          return prevData.map((item) => {
+            if(item.id === new_data.id){
+              return{
+                ...item,
+                state: new_data.state
+              };
+            }else{
+              return item;
+            }
+          })
+        });
+        alert('狀態已修改');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   // 刪除Issue
@@ -53,9 +82,6 @@ export default function DetailPage(){
 
   }
 
-
-
-
   return(
     <>
       <Navbar />
@@ -78,7 +104,7 @@ export default function DetailPage(){
 
             {/* 操作 */}
             <div className="operate">
-              <select className="state_select" value={currentState} onChange={(e)=>{selectChange(e.target.value)}}>
+              <select className="state_select" value={currentState} onChange={(e)=>{setIssueState(e.target.value)}}>
                 <option value="open">Open</option>
                 <option value="in_progress">In Progress</option>
                 <option value="done">Done</option>
