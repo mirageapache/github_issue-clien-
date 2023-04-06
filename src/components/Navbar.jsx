@@ -12,19 +12,22 @@ export default function Navbar(){
 
   // 取得UserData
   useEffect(() => {
-    async function getUserData(){
-      try {
-        const result = await axios.get(`http://localhost:5000/getUserData`,{
-          headers: {
-            "Authorization": "Bearer " + localStorage.getItem('access_token')
-          }
-        });
-        setUserData(result.data);
-      } catch (error) {
-        console.log(error);
+    if(userData === null){
+      async function getUserData(){
+        try {
+          const result = await axios.get(`http://localhost:5000/getUserData`,{
+            headers: {
+              "Authorization": "Bearer " + localStorage.getItem('access_token')
+            }
+          });
+          setUserData(result.data);
+        } catch (error) {
+          console.log(error);
+        }
       }
+      getUserData();
     }
-    getUserData();
+    
   }, [userData])
 
   // 登出
