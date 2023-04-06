@@ -7,6 +7,11 @@
 - 本系統採用 React 框架開發，本專案須與 proxy 伺服器搭配使用
   (伺服器專案連結：https://github.com/mirageapache/github_issue_server.git)
 
+- Github Page 部署網址 https://mirageapache.github.io/github_issue_client/
+  (註 1：須執行本機伺服器搭配使用)
+  (註 2：登入後須將網址列 localhost:3000 手動修改為 https://mirageapache.github.io/github_issue_client)
+  已上兩限制仍在找尋修正方法
+
 ## 環境設置
 
 - node.js - 16.14.2
