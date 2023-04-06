@@ -5,7 +5,7 @@
 本系統為簡易版 Github issue 操作系統，使用者可以 Github 帳號登入後瀏覽個人 issue 清單，另有新增、修改、刪除等功能
 
 - 本系統採用 React 框架開發，本專案須與 proxy 伺服器搭配使用
-  (伺服器專案連結：https://github.com/mirageapache/github_issue_server_-_.git)
+  (伺服器專案連結：https://github.com/mirageapache/github_issue_server.git)
 
 ## 環境設置
 
@@ -39,7 +39,7 @@ npm start //執行專案前須先啟動Server端程式喔！
 4.瀏覽網頁
 
 ```
-瀏覽器將自動開啟網頁，如未正常開啟請輸入http://localhost:3000/github_issue_client_/login，即可使用
+瀏覽器將自動開啟網頁，如未正常開啟請輸入http://localhost:3000/，即可使用
 ```
 
 5.終止程式
