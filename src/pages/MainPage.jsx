@@ -29,7 +29,7 @@ export default function MainPage(){
       }
       getUserData();
     }
-  }, [setUserData])
+  }, [userData,setUserData])
 
 
   // 取得Search List
@@ -83,7 +83,7 @@ export default function MainPage(){
       }
       getIssueList();
     }
-  },[userData,setIssueList])
+  },[userData,issueList,setIssueList])
 
 
   return(
