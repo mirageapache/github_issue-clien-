@@ -60,7 +60,7 @@ export default function MainPage(){
 
   // 取得Issue List
   useEffect(()=>{
-    if(userData!== null && issueList === null){
+    if(userData !== null && issueList === null){
       // 取得Issue List
       async function getIssueList(){
         try {
@@ -77,7 +77,7 @@ export default function MainPage(){
       }
       getIssueList();
     }
-  },[issueList,setIssueList])
+  },[userData,setIssueList])
 
 
   return(
