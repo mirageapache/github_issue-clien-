@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function DetailPage(){
-  const { userData, issue, currentState, setCurrentState, setIssueList } = useMain();
+  const { userData, issue, currentState, setCurrentState, setIssue, setIssueList } = useMain();
   const navigate = useNavigate();
 
   // 進入編輯頁
@@ -20,23 +20,29 @@ export default function DetailPage(){
     let substring_from = 30 + userData.login.length;
     const repo = issue.repository_url.substring(substring_from);
     try {
-      const result = await axios.get(`http://localhost:5000/setLabelsToIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&state=${value}`,{
+      const result = await axios.get(`http://localhost:5000/setLabelsToIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&label=${value}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
       });
       if(result.status === 200){
-        console.log(result);
         const new_data = result.data;
+        setIssue((prevData)=>{
+          return{ 
+            ...prevData,
+            labels: new_data
+          }
+        });
         setIssueList((prevData)=>{
-          return prevData.map((item) => {
-            if(item.id === new_data.id){
+          return prevData.map(data=>{
+            if(data.id === issue.id){
               return{
-                ...item,
-                state: new_data.state
-              };
-            }else{
-              return item;
+                ...data,
+                labels: new_data
+              }
+            }
+            else{
+              return data
             }
           })
         });
@@ -50,36 +56,44 @@ export default function DetailPage(){
 
   // 刪除Issue
   async function deleteIssue(){
-    let substring_from = 30 + userData.login.length;
-    const repo = issue.repository_url.substring(substring_from);
-    try {
-      // 刪除issue資料(closed)
-      const result = await axios.get(`http://localhost:5000/deleteIssue?username=${userData.login}&repo=${repo}&number=${issue.number}`,{
-        headers: {
-          "Authorization": "Bearer " + localStorage.getItem('access_token')
-        }
-      });
-      if(result.status === 200){
-        const new_data = result.data;
-        setIssueList((prevData)=>{
-          return prevData.map((item) => {
-            if(item.id === new_data.id){
-              return{
-                ...item,
-                state: new_data.state
-              };
-            }else{
-              return item;
-            }
-          })
+    let delete_confirm = window.confirm("確定要刪除嗎?");
+    if(delete_confirm){
+      let substring_from = 30 + userData.login.length;
+      const repo = issue.repository_url.substring(substring_from);
+      try {
+        // 刪除issue資料(closed)
+        const result = await axios.get(`http://localhost:5000/deleteIssue?username=${userData.login}&repo=${repo}&number=${issue.number}`,{
+          headers: {
+            "Authorization": "Bearer " + localStorage.getItem('access_token')
+          }
         });
-        alert('刪除成功！')
-        navigate('/main');
+        if(result.status === 200){
+          const new_data = result.data;
+          setIssueList((prevData)=>{
+            return prevData.map((item) => {
+              if(item.id === new_data.id){
+                return{
+                  ...item,
+                  state: new_data.state
+                };
+              }else{
+                return item;
+              }
+            })
+          });
+          alert('刪除成功！')
+          navigate('/main');
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
+  }
 
+  // 下拉選単資料
+  let issue_state = 'open';
+  if(issue.labels.length > 0){
+    issue_state = issue.labels[0].name
   }
 
   return(
@@ -104,7 +118,7 @@ export default function DetailPage(){
 
             {/* 操作 */}
             <div className="operate">
-              <select className="state_select" value={currentState} onChange={(e)=>{setIssueState(e.target.value)}}>
+              <select className="state_select" value={issue_state} onChange={(e)=>{setIssueState(e.target.value)}}>
                 <option value="open">Open</option>
                 <option value="in_progress">In Progress</option>
                 <option value="done">Done</option>

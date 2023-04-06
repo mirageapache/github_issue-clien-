@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "components/Navbar";
 import IssueList from "components/IssueList";
 import SearchPanel from "components/SearchPanel";
@@ -23,7 +22,6 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          console.log(result.data);
           setUserData(result.data);
         } catch (error) {
           console.log(error);
@@ -69,7 +67,6 @@ export default function MainPage(){
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          console.log(result)
           setIssueList(result.data.items);
         } catch (error) {
           console.log(error);

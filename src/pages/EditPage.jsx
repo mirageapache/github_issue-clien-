@@ -1,12 +1,12 @@
 import axios from "axios";
 import Navbar from "components/Navbar";
 import { useMain } from "context/MainContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import 'styles/css/edit.css'
 
 export default function EditPage(){
-  const { userData, rerender, setRerender, setIssueList } = useMain();
+  const { userData, setIssueList } = useMain();
   const { issue } = useMain();
   const [title, setTitle] = useState(issue.title);
   const [body, setBody] = useState(issue.body);

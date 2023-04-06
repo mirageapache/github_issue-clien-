@@ -61,7 +61,13 @@ export default function IssueList({ getSearchList }){
 }
 
 function IssueItem({ index, data, link, handleDetail }){
-  // console.log(data.labels.name)
+  let state = 'open';
+  if(data.state === 'closed'){
+    state = 'closed';
+  }
+  else if(data.labels.length > 0){
+    state = data.labels[0].name
+  }
 
   return(
     <>
@@ -73,7 +79,7 @@ function IssueItem({ index, data, link, handleDetail }){
           </NavLink>
         </td>
         <td className="content">{data.body}</td>
-        <td className="state">{data.labels.id}</td>
+        <td className="state">{state}</td>
         <td className="date">{data.created_at.substring(0,10)}</td>
       </tr>
     </>

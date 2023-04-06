@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import 'styles/css/create.css'
 
 export default function CreatePage(){
-  const { userData, rerender, setRerender, setIssueList } = useMain();
+  const { userData, setIssueList } = useMain();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [repo, setRepo] = useState('');
