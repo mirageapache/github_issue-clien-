@@ -4,7 +4,6 @@ import { ReactComponent as IconArrorUp} from 'assets/icons/caret_up.svg';
 import { ReactComponent as IconArrorDown} from 'assets/icons/caret_down.svg';
 import { useMain } from "context/MainContext";
 import axios from "axios";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function IssueList({ getSearchList }){
   const { sortDate, searchString, setIssue, issueList, userData, currentState } = useMain();

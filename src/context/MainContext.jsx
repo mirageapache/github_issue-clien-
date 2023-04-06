@@ -7,7 +7,9 @@ const defaultValue = {
   issueList: null,
   searchString: '',
   sortDate: true,
-  currentState: 'all'
+  currentState: 'all',
+  page: 1,
+  total_count: 0
 };
 
 const MainContext = createContext(defaultValue);
@@ -21,24 +23,21 @@ export const MainProvider = ({ children }) => {
   const [searchString, setSearchString] = useState(); //搜尋字串
   const [sortDate, setSortDate] = useState(true); //list排序
   const [currentState, setCurrentState] = useState('all'); //當前查詢的狀態
+  const [total_count, setTotalCount] = useState(0) //資料總筆數
+  const [page, setPage] = useState(1); // 資料載入分頁index
 
   return (
     <MainContext.Provider 
       value={{
-          rerender,
-          setRerender,
-          userData,
-          setUserData,
-          issue,
-          setIssue,
-          issueList,
-          setIssueList, 
-          searchString,
-          setSearchString,
-          sortDate,
-          setSortDate,
-          currentState,
-          setCurrentState
+          rerender, setRerender,
+          userData, setUserData,
+          issue, setIssue,
+          issueList, setIssueList, 
+          searchString, setSearchString,
+          sortDate, setSortDate,
+          currentState, setCurrentState,
+          page, setPage,
+          total_count, setTotalCount
         }}
       >
       {children}

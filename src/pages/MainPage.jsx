@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Navbar from "components/Navbar";
 import IssueList from "components/IssueList";
@@ -9,8 +9,9 @@ import { useMain } from "context/MainContext";
 export default function MainPage(){
   const { userData, setUserData } = useMain();
   const { issueList, setIssueList } = useMain();
-  const { searchString, setSearchString, setCurrentState} = useMain('');
+  const { searchString, setSearchString, setCurrentState} = useMain();
   const { setSortDate } = useMain(true);
+  const { page, setPage } = useMain(); // 動態載入
 
   // 取得UserData
   useEffect(() => {
@@ -67,24 +68,40 @@ export default function MainPage(){
 
   // 取得Issue List
   useEffect(()=>{
-    if(userData !== null && issueList === null){
+    if(userData !== null){
       // 取得Issue List
       async function getIssueList(){
         try {
-          const result = await axios.get(`http://localhost:5000/getIssueList?q=author:${userData.login}`,{
+          const result = await axios.get(`http://localhost:5000/getIssueList?q=author:${userData.login}&page=${page}`,{
             headers: {
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
           });
-          setIssueList(result.data.items);
+          const new_data = result.data.items;
+          if(issueList !== null){
+            setIssueList([...issueList, ...new_data]);
+          }
+          else{
+            setIssueList(result.data.items);
+          }
         } catch (error) {
           console.log(error);
         }
       }
       getIssueList();
     }
-  },[userData,issueList,setIssueList])
+  },[userData,setIssueList,page])
 
+  // 監聽頁面捲動至底部
+  window.addEventListener('scroll', () => {
+    const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    const scrollTop = Math.max(window.scrollY, window.pageYOffset);
+    const clientHeight = window.innerHeight;
+    if (scrollTop + clientHeight === scrollHeight) {
+      console.log('bottom');
+      setPage(page+1)
+    }
+  });
 
   return(
     <>
