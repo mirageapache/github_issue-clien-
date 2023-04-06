@@ -97,8 +97,7 @@ export default function MainPage(){
     const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     const scrollTop = Math.max(window.scrollY, window.pageYOffset);
     const clientHeight = window.innerHeight;
-    if (scrollTop + clientHeight === scrollHeight) {
-      console.log('bottom');
+    if (scrollTop + clientHeight > scrollHeight - 10) {
       setPage(page+1)
     }
   });
