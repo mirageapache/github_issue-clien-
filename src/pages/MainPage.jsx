@@ -8,7 +8,7 @@ import 'styles/css/main.css';
 import { useMain } from "context/MainContext";
 
 export default function MainPage(){
-  const { userData, setUserData, rerender, setRerender } = useMain();
+  const { userData, setUserData } = useMain();
   const { issueList, setIssueList } = useMain();
   const { searchString, setSearchString} = useMain('');
   const { setSortDate } = useMain(true);
@@ -31,7 +31,7 @@ export default function MainPage(){
       }
       getUserData();
     }
-  }, [userData])
+  }, [setUserData])
 
 
   // 取得Search List
@@ -77,7 +77,7 @@ export default function MainPage(){
       }
       getIssueList();
     }
-  },[issueList,setIssueList,userData,rerender,setRerender])
+  },[issueList,setIssueList])
 
 
   return(

@@ -9,7 +9,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 export default function IssueList({ getSearchList }){
   const { sortDate, searchString, setIssue, issueList, userData } = useMain();
   const navigate = useNavigate();
-
   const data_item = issueList.map((item,index) => {
     const link = `/detail?id=${item.number}`
     return <IssueItem key={item.id} index={index} data={item} link={link} handleDetail={handleDetail} />
@@ -62,6 +61,8 @@ export default function IssueList({ getSearchList }){
 }
 
 function IssueItem({ index, data, link, handleDetail }){
+  // console.log(data.labels.name)
+
   return(
     <>
       <tr>
@@ -72,7 +73,7 @@ function IssueItem({ index, data, link, handleDetail }){
           </NavLink>
         </td>
         <td className="content">{data.body}</td>
-        <td className="state">{data.state}</td>
+        <td className="state">{data.labels.id}</td>
         <td className="date">{data.created_at.substring(0,10)}</td>
       </tr>
     </>
