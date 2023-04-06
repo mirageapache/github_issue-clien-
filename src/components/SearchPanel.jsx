@@ -5,16 +5,25 @@ import { useNavigate } from 'react-router-dom';
 
 export default function SearchPanel({ getSearchList }){
   const { sortData, searchString, setSearchString, currentState, setCurrentState} = useMain();
+  const { search_mode, setSearchMode, setPage } = useMain();
   const navigate = useNavigate();
 
   // 輸入捜尋
   function handleSearch(value){
+    if(!search_mode){
+      setPage(1);
+    }
+    setSearchMode(true);
     setSearchString(value)
     getSearchList(value, sortData, currentState);
   }
 
   // 狀態分類搜尋
   function handleState(value){
+    if(!search_mode){
+      setPage(1);
+    }
+    setSearchMode(true);
     setCurrentState(value);
     getSearchList(searchString, sortData, value);
   }

@@ -12,8 +12,10 @@ import { MainProvider } from 'context/MainContext';
 
 function App() {
 
+  const basename = process.env.PUBLIC_URL;
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <MainProvider>
         <div className="App">
           <section className='container'>

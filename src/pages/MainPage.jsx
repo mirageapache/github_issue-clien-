@@ -12,6 +12,7 @@ export default function MainPage(){
   const { searchString, setSearchString, setCurrentState} = useMain();
   const { setSortDate } = useMain(true);
   const { page, setPage } = useMain(); // 動態載入
+  const { searchMode, setSearchMode } = useMain();
 
   // 取得UserData
   useEffect(() => {
@@ -69,6 +70,10 @@ export default function MainPage(){
   // 取得Issue List
   useEffect(()=>{
     if(userData !== null){
+      if(searchMode){
+        setPage(1);
+        setSearchMode(false);
+      }
       // 取得Issue List
       async function getIssueList(){
         try {

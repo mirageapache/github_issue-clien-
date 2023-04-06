@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const defaultValue = {
   rerender: false,
@@ -9,7 +9,7 @@ const defaultValue = {
   sortDate: true,
   currentState: 'all',
   page: 1,
-  total_count: 0
+  search_mode: false
 };
 
 const MainContext = createContext(defaultValue);
@@ -23,8 +23,12 @@ export const MainProvider = ({ children }) => {
   const [searchString, setSearchString] = useState(); //搜尋字串
   const [sortDate, setSortDate] = useState(true); //list排序
   const [currentState, setCurrentState] = useState('all'); //當前查詢的狀態
-  const [total_count, setTotalCount] = useState(0) //資料總筆數
   const [page, setPage] = useState(1); // 資料載入分頁index
+  const [search_mode, setSearchMode] = useState(false) //是否執行搜尋
+
+  useEffect(() => {
+    setIssueList([]);
+  },[search_mode])
 
   return (
     <MainContext.Provider 
@@ -37,7 +41,7 @@ export const MainProvider = ({ children }) => {
           sortDate, setSortDate,
           currentState, setCurrentState,
           page, setPage,
-          total_count, setTotalCount
+          search_mode, setSearchMode
         }}
       >
       {children}
