@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../logo.svg';
+import { baseUrl } from 'api';
 
 // const client_id = process.env.REACT_APP_CLIENT_ID;
 const client_id = "56101bc6f878daff5d1e";
@@ -18,8 +19,9 @@ export default function LoginPage(){
       // getAccessToken
       async function getAccessToken(){
         try {
-          const result = await axios.get(`http://localhost:5000/getAccessToken?code=${code}`);
+          const result = await axios.get(`${baseUrl}/getAccessToken?code=${code}`);
           localStorage.setItem('access_token', result.data.access_token);
+          console.log(result)
           navigate('/main');
         } catch (error) {
           console.log(error);

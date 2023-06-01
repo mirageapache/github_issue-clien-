@@ -2,6 +2,7 @@ import { useMain } from "context/MainContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import 'styles/css/navbar.css'
 import axios from "axios";
+import { baseUrl } from "api";
 
 import { ReactComponent as IconLogout} from 'assets/icons/logout.svg';
 import { useEffect } from "react";
@@ -15,7 +16,7 @@ export default function Navbar(){
     if(userData === null){
       async function getUserData(){
         try {
-          const result = await axios.get(`http://localhost:5000/getUserData`,{
+          const result = await axios.get(`${baseUrl}/getUserData`,{
             headers: {
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }

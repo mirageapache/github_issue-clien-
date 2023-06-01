@@ -4,6 +4,7 @@ import { useMain } from "context/MainContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import 'styles/css/create.css'
+import { baseUrl } from "api";
 
 export default function CreatePage(){
   const { userData, setIssueList } = useMain();
@@ -17,7 +18,7 @@ export default function CreatePage(){
   useEffect(()=>{
     async function getRepoList(){
       try {
-        const result = await axios.get(`http://localhost:5000/getRepoList`,{
+        const result = await axios.get(`${baseUrl}/getRepoList`,{
           headers: {
             "Authorization": "Bearer " + localStorage.getItem('access_token')
           }
@@ -32,7 +33,7 @@ export default function CreatePage(){
 
   // 加入labels 至issue
   async function addLabels(number){
-    await axios.get(`http://localhost:5000/addLabelsToIssue?username=${userData.login}&repo=${repo}&number=${number}`,{
+    await axios.get(`${baseUrl}/addLabelsToIssue?username=${userData.login}&repo=${repo}&number=${number}`,{
       headers: {
         "Authorization": "Bearer " + localStorage.getItem('access_token')
       }
@@ -60,7 +61,7 @@ export default function CreatePage(){
 
     try {
       // 建立新的issue
-      const result = await axios.get(`http://localhost:5000/createIssue?username=${userData.login}&repo=${repo}&title=${title}&body=${body}`,{
+      const result = await axios.get(`${baseUrl}/createIssue?username=${userData.login}&repo=${repo}&title=${title}&body=${body}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }

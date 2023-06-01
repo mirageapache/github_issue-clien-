@@ -4,6 +4,7 @@ import 'styles/css/detail.css'
 import { ReactComponent as IconBack} from 'assets/icons/left_arrow.svg';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseUrl } from "api";
 
 export default function DetailPage(){
   const { userData, issue, currentState, setCurrentState, setIssue, setIssueList } = useMain();
@@ -20,7 +21,7 @@ export default function DetailPage(){
     let substring_from = 30 + userData.login.length;
     const repo = issue.repository_url.substring(substring_from);
     try {
-      const result = await axios.get(`http://localhost:5000/setLabelsToIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&label=${value}`,{
+      const result = await axios.get(`${baseUrl}/setLabelsToIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&label=${value}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
@@ -62,7 +63,7 @@ export default function DetailPage(){
       const repo = issue.repository_url.substring(substring_from);
       try {
         // 刪除issue資料(closed)
-        const result = await axios.get(`http://localhost:5000/deleteIssue?username=${userData.login}&repo=${repo}&number=${issue.number}`,{
+        const result = await axios.get(`${baseUrl}/deleteIssue?username=${userData.login}&repo=${repo}&number=${issue.number}`,{
           headers: {
             "Authorization": "Bearer " + localStorage.getItem('access_token')
           }

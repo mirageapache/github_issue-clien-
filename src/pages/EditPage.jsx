@@ -4,6 +4,7 @@ import { useMain } from "context/MainContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import 'styles/css/edit.css'
+import { baseUrl } from "api";
 
 export default function EditPage(){
   const { userData, setIssueList } = useMain();
@@ -18,7 +19,7 @@ export default function EditPage(){
     const repo = issue.repository_url.substring(substring_from);
     const label = ['open','in_progress','done'];
     for(let i = 0; i<=2; i++){
-      const result = await axios.get(`http://localhost:5000/createLabels?username=${userData.login}&repo=${repo}&label_name=${label[i]}`,{
+      const result = await axios.get(`${baseUrl}/createLabels?username=${userData.login}&repo=${repo}&label_name=${label[i]}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
@@ -46,7 +47,7 @@ export default function EditPage(){
     const repo = issue.repository_url.substring(substring_from);
     try {
       // 編輯issue資料
-      const result = await axios.get(`http://localhost:5000/editIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&title=${title}&body=${body}`,{
+      const result = await axios.get(`${baseUrl}/editIssue?username=${userData.login}&repo=${repo}&number=${issue.number}&title=${title}&body=${body}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }

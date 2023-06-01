@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import Navbar from "components/Navbar";
 import IssueList from "components/IssueList";
 import SearchPanel from "components/SearchPanel";
 import 'styles/css/main.css';
 import { useMain } from "context/MainContext";
+import { baseUrl } from 'api'
 
 export default function MainPage(){
   const { userData, setUserData } = useMain();
@@ -17,9 +18,10 @@ export default function MainPage(){
   // 取得UserData
   useEffect(() => {
     if(userData === null){
+      console.log('execute')
       async function getUserData(){
         try {
-          const result = await axios.get(`http://localhost:5000/getUserData`,{
+          const result = await axios.get(`${baseUrl}/getUserData`,{
             headers: {
               "Authorization": "Bearer " + localStorage.getItem('access_token')
             }
@@ -56,7 +58,7 @@ export default function MainPage(){
     }
 
     try {
-      const result = await axios.get(`http://localhost:5000/getSearchList?q=${parmas}&sort=${sortDate}`,{
+      const result = await axios.get(`${baseUrl}/getSearchList?q=${parmas}&sort=${sortDate}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
@@ -68,30 +70,32 @@ export default function MainPage(){
   }
 
   // 取得Issue List
+  async function getIssueList(){
+    try {
+      const result = await axios.get(`${baseUrl}/getIssueList?q=author:${userData.login}&page=${page}`,{
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem('access_token')
+        }
+      });
+      const new_data = result.data.items;
+      if(issueList !== null){
+        setIssueList([...issueList, ...new_data]);
+      }
+      else{
+        if(searchMode)
+        setIssueList(result.data.items);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // 取得Issue List
   useEffect(()=>{
     if(userData !== null){
       if(searchMode){
         setPage(1);
         setSearchMode(false);
-      }
-      // 取得Issue List
-      async function getIssueList(){
-        try {
-          const result = await axios.get(`http://localhost:5000/getIssueList?q=author:${userData.login}&page=${page}`,{
-            headers: {
-              "Authorization": "Bearer " + localStorage.getItem('access_token')
-            }
-          });
-          const new_data = result.data.items;
-          if(issueList !== null){
-            setIssueList([...issueList, ...new_data]);
-          }
-          else{
-            setIssueList(result.data.items);
-          }
-        } catch (error) {
-          console.log(error);
-        }
       }
       getIssueList();
     }
@@ -113,7 +117,7 @@ export default function MainPage(){
       {userData !== null ?
         <>
         <Navbar />
-        <SearchPanel  getSearchList={getSearchList} />
+        <SearchPanel  getSearchList={getSearchList} getIssueList={getIssueList} />
         { issueList !== null && issueList !== undefined ?
           <>
             <IssueList  getSearchList={getSearchList} />

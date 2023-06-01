@@ -3,7 +3,7 @@ import 'styles/css/main.css';
 import { ReactComponent as IconCreate} from 'assets/icons/create_item.svg';
 import { useNavigate } from 'react-router-dom';
 
-export default function SearchPanel({ getSearchList }){
+export default function SearchPanel({ getSearchList, getIssueList }){
   const { sortData, searchString, setSearchString, currentState, setCurrentState} = useMain();
   const { search_mode, setSearchMode, setPage } = useMain();
   const navigate = useNavigate();
@@ -20,12 +20,19 @@ export default function SearchPanel({ getSearchList }){
 
   // 狀態分類搜尋
   function handleState(value){
-    if(!search_mode){
-      setPage(1);
+    console.log(value)
+    if(value === 'all'){
+      setSearchMode(false);
+      getIssueList();
     }
-    setSearchMode(true);
+    else{
+      if(!search_mode){
+        setPage(1);
+      }
+      setSearchMode(true);
+      getSearchList(searchString, sortData, value);
+    }
     setCurrentState(value);
-    getSearchList(searchString, sortData, value);
   }
 
   return(

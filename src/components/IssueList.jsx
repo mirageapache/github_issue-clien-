@@ -4,6 +4,7 @@ import { ReactComponent as IconArrorUp} from 'assets/icons/caret_up.svg';
 import { ReactComponent as IconArrorDown} from 'assets/icons/caret_down.svg';
 import { useMain } from "context/MainContext";
 import axios from "axios";
+import { baseUrl } from "api";
 
 export default function IssueList({ getSearchList }){
   const { sortDate, searchString, setIssue, issueList, userData, currentState } = useMain();
@@ -19,7 +20,7 @@ export default function IssueList({ getSearchList }){
     let substring_from = 30 + user_name.length;
     const repo_name = repo_url.substring(substring_from);
     try {
-      const result = await axios.get(`http://localhost:5000/getDetail?username=${user_name}&repo=${repo_name}&number=${index}`,{
+      const result = await axios.get(`${baseUrl}/getDetail?username=${user_name}&repo=${repo_name}&number=${index}`,{
         headers: {
           "Authorization": "Bearer " + localStorage.getItem('access_token')
         }
