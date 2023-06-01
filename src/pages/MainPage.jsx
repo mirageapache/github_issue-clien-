@@ -18,7 +18,6 @@ export default function MainPage(){
   // 取得UserData
   useEffect(() => {
     if(userData === null){
-      console.log('execute')
       async function getUserData(){
         try {
           const result = await axios.get(`${baseUrl}/getUserData`,{

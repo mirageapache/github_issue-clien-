@@ -20,7 +20,6 @@ export default function SearchPanel({ getSearchList, getIssueList }){
 
   // 狀態分類搜尋
   function handleState(value){
-    console.log(value)
     if(value === 'all'){
       setSearchMode(false);
       getIssueList();

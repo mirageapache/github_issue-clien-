@@ -21,7 +21,6 @@ export default function LoginPage(){
         try {
           const result = await axios.get(`${baseUrl}/getAccessToken?code=${code}`);
           localStorage.setItem('access_token', result.data.access_token);
-          console.log(result)
           navigate('/main');
         } catch (error) {
           console.log(error);
