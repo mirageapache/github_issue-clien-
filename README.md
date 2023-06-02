@@ -1,16 +1,13 @@
-# Github Issue Project
+# Github Issue (Client) Project
 
 ## 專案說明
 
 本系統為簡易版 Github issue 操作系統，使用者可以 Github 帳號登入後瀏覽個人 issue 清單，另有新增、修改、刪除等功能
 
-- 本系統採用 React 框架開發，本專案須與 proxy 伺服器搭配使用
-  (伺服器專案連結：https://github.com/mirageapache/github_issue_server.git)
-
 - Github Page 部署網址 https://mirageapache.github.io/github_issue_client/
-  (註 1：因尚未部署伺服器端，故須執行「伺服器專案」搭配使用)
-  (註 2：登入後須將網址列 localhost:3000 手動修改為 https://mirageapache.github.io/github_issue_client)
-  已上兩限制仍在找尋修正方法
+
+- 本系統採用 React 框架開發，並搭配 Express 中介層伺服器
+  (Server 端專案連結：https://github.com/mirageapache/github_issue_server.git)
 
 ## 環境設置
 
