@@ -35,7 +35,7 @@ npm install
 3.啟動程式
 
 ```
-npm start //執行專案前須先啟動Server端程式喔！
+npm start
 ```
 
 4.瀏覽網頁
